@@ -13,9 +13,9 @@
     <form action="" method="POST">
         {% csrf_token %}
         <label for="username">帳號</label>
-        <input type="text" name="username" id="username" value="{{ user.username }}"><br>
+        <input type="text" name="username" id="username" value="{{ username }}"><br>
         <label for="password">密碼</label>
-        <input type="text" name="password" id="password" value="{{ user.password }}"><br>
+        <input type="text" name="password" id="password"><br>
         <p>
             <input type="submit" name="login" value="登入">
             <input type="submit" name="register" value="註冊">
