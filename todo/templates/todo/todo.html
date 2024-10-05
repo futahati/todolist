@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block style %}
+{% block content %}
 
 <head>
     <style>
@@ -38,14 +38,11 @@
         }
     </style>
 </head>
-{% endblock %}
-
-{% block content %}
-
-<h1>Todolist</h1>
+<h1>Todo</h1>
 
 
-{% for todo in todos %}
+
+{% if todo %}
 <div class="todo">
     <span style="font-size: small;">{{ todo.created }}</span>
     <div class="title">
@@ -63,5 +60,4 @@
 </div>
 {% endfor %}
 
-
-{% endblock%}
+{% endblock %}
