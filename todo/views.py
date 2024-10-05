@@ -42,6 +42,22 @@ def todo(request, id):
     )
 
 
+# 刪除待辦事項
+def delete_todo(request, id):
+    user = request.user
+    todo = None
+
+    try:
+        todo = Todo.objects.get(id=id, user=user)
+        todo.delete()
+
+    except Exception as e:
+        print(e)
+
+    return redirect("todolist")
+
+
+# 新增待辦事項
 def create_todo(request):
     message = ""
     user = request.user
@@ -58,6 +74,10 @@ def create_todo(request):
                 form = TodoForm(request.POST)
                 todo = form.save(commit=False)
                 todo.user = request.user
+
+                now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                todo.date_completed = now if todo.completed else None
+
                 todo.save()
                 message = "提交成功！"
                 return redirect("todolist")
@@ -68,20 +88,7 @@ def create_todo(request):
     return render(request, "todo/create-todo.html", {"form": form, "message": message})
 
 
-def todo(request, id):
-    message = ""
-    user = request.user
-    todo = None
-    try:
-        todo = Todo.objects.get(id=id, user=user)
-
-    except Exception as e:
-        print(e)
-        message = "編號錯誤"
-
-    return render(request, "todo/todo.html", {"todo": todo, "message": message})
-
-
+# 首頁
 def todolist(request):
     user = request.user
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: bisque;
+        }
+
+        #navbar {
+            background-color: blueviolet;
+            padding: 12px;
+        }
+
+        .username {
+            background-color: cornsilk;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: aquamarine;
+            padding: auto;
+            width: 60px;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-left: 12px;
+        }
+
+        #container {
+            text-align: center;
+        }
+    </style>
+    {% block style %}
+
+    {% endblock %}
+</head>
+<h1> completed </h1>
+
+<body>
+    <div id="navbar">
+        {% if user.is_authenticated %}
+        使用者：<span class="username">
+            <a href="{% url 'profile' %}">
+                {{ user.username }}
+            </a>
+        </span>
+        <a class="button" href="{% url 'logout' %}">登出</a>
+        <a class="button" style="background-color: cadetblue;" href="{% url 'create-todo' %}">建立待辦事項</a>
+        {% else %}
+        <a class="button" href="{% url 'login' %}">登入</a>
+        <a class="button" href="{% url 'register' %}">註冊</a>
+        {% endif %}
+        <a class="button" style="background-color: azure;" href="{% url 'todolist' %}">回首頁</a>
+
+    </div>
+    <div id="container">
+
+        {% block content %}
+
+        {% endblock%}
+
+        <div style="color: magenta;"> {{ message }} </div>
+    </div>
+</body>
+
+</html>
