@@ -41,22 +41,27 @@
 {% endblock %}
 
 {% block content %}
-
 <h1>Todolist</h1>
 
 
 {% for todo in todos %}
 <div class="todo">
-    <span style="font-size: small;">{{ todo.created }}</span>
+    <div class="created">{{todo.created}}</div>
     <div class="title">
-        <a href="{% url 'todo' todo.id %}">{{ todo.title }}</a>
+        <a href="{% url 'todo' todo.id %}">{{todo.title}}
+            {% if todo.important %}
+            <span style="color:red;font-size: 16px;">(重要)</span>
+            {% endif %}
+        </a>
     </div>
-    <div class="text">{{ todo.text }}</div>
-    <div class="imp">
-        {% if todo.important %}
-        <span style="color: crimson;">重要</span>
+    <div class="text">{{todo.text|linebreaksbr}}</div>
+    <div class="completed" {% if todo.date_completed %} style="background-color: aqua; margin: 2px;
+    border-radius: 3px;" {% else %} style="background-color: rgb(0, 163, 163); margin: 2px;color: white;
+    border-radius: 3px;" {% endif %}>
+        {% if todo.date_completed %}
+        <span style="color: blue;">{{ 已完成 }}</span>
         {% else %}
-        <span style="color: blue;">一般</span>
+        進行中
         {% endif %}
     </div>
 

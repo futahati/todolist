@@ -40,24 +40,18 @@
 </head>
 <h1>Todo</h1>
 
-
+{{ form }}
 
 {% if todo %}
-<div class="todo">
-    <span style="font-size: small;">{{ todo.created }}</span>
-    <div class="title">
-        <a href="{% url 'todo' todo.id %}">{{ todo.title }}</a>
-    </div>
-    <div class="text">{{ todo.text }}</div>
-    <div class="imp">
-        {% if todo.important %}
-        <span style="color: crimson;">重要</span>
-        {% else %}
-        <span style="color: blue;">一般</span>
-        {% endif %}
-    </div>
+<div class="created">建立時間：{{ todo.created }}</div>
 
-</div>
-{% endfor %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
 
+    {% if form %}
+    <button type="submit">提交</button>
+    <button type="reset">清除</button>
+    {% endif %}
+</form>
 {% endblock %}
